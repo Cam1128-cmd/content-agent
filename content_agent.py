@@ -3,34 +3,63 @@ from typing import Optional
 
 import openai
 
-PROMPT_TEMPLATE = """You are a content strategy agent tasked with creating a 7-day social media content gameplan for an AI education Skool community.
+PROMPT_TEMPLATE = """You are a content strategy agent creating a 7-day social media content gameplan for an AI education Skool community.
 
 Community details:
-- The community teaches everyday business owners how to use AI practically and profitably.
-- Two audience segments: complete beginners (zero AI experience) and intermediate learners (general AI knowledge, ready to build websites, ebooks, AI agents, and other business tools).
-- Tone: encouraging, jargon-free, and results-focused. Make AI feel accessible, not intimidating.
+- Teaches everyday business owners how to use AI practically and profitably.
+- Two segments: complete beginners (zero AI experience) and intermediate learners ready to build websites, ebooks, AI agents, and automations.
+- Tone: encouraging, jargon-free, results-focused. Make AI feel accessible, not intimidating.
 
 Requirements:
-- Provide 7 daily themes that speak directly to business owners curious about or learning AI.
-- For each day, include 3 cross-post captions or short scripts for Instagram, TikTok, Threads, and Facebook.
-- Include 1 YouTube content idea per day with a title and short description.
-- Each post must have a strong hook, clear value, and a CTA that drives people to join the Skool community.
-- Mix content for both audience segments across the week (some posts for total beginners, some for those ready to build).
-- Include real, relatable examples of what members learn: AI agents, websites, ebooks, automations, and other business tools.
+- 7 daily themes that speak directly to business owners curious about or learning AI.
+- Each day: 2 social media posts (Instagram, TikTok, Threads, Facebook) with a Hook, Value, and CTA.
+- Each post must include a short-form video script (conversational, 60-90 words, ends with an engagement prompt).
+- Mix beginner and intermediate content across the week.
+- All CTAs drive people to join the Skool community.
 
 Input:
 Niche: {niche}
 Primary goal: {goal}
 
-Output format:
-- Day 1: Theme
-  - Post 1: Hook, value, CTA
-  - Post 2: Hook, value, CTA
-  - Post 3: Hook, value, CTA
-  - YouTube: Title, Description, CTA
-  - Audience note: (beginner / intermediate / both)
+Output format — follow this structure exactly for every day:
 
-Write output in Markdown.
+# Day [number] — [Theme]
+
+## Post 1
+
+**Hook:**
+[one punchy sentence]
+
+**Value:**
+[2-3 sentences of useful insight]
+
+**CTA:**
+[one clear call to action]
+
+### Video Script
+
+[60-90 word conversational script, no hashtags, ends with an engagement prompt like "Comment AI if you want to learn more."]
+
+---
+
+## Post 2
+
+**Hook:**
+[one punchy sentence]
+
+**Value:**
+[2-3 sentences of useful insight]
+
+**CTA:**
+[one clear call to action]
+
+### Video Script
+
+[60-90 word conversational script, no hashtags, ends with an engagement prompt]
+
+---
+
+Repeat this structure for all 7 days. Do not add any intro or closing text outside of this format.
 """
 
 
@@ -54,6 +83,6 @@ def create_gameplan(niche: str, goal: Optional[str] = None) -> str:
             {"role": "user", "content": prompt},
         ],
         temperature=0.8,
-        max_tokens=1500,
+        max_tokens=3500,
     )
     return response.choices[0].message.content.strip()
