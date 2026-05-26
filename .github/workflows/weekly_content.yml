@@ -2,7 +2,7 @@ name: Weekly Content Plan
 
 on:
   schedule:
-    - cron: "0 9 * * 1"  # Every Monday at 9am UTC
+    - cron: "0 12 * * 1"  # Every Monday at 8am EST (UTC-4 during daylight saving)
   workflow_dispatch:      # Allows manual trigger from GitHub
 
 jobs:
